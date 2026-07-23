@@ -10,6 +10,13 @@ test.describe('Home page with no auth', () => {
     productGrid = page.locator('.col-md-9');
   });
 
+  test("visual test", async ({ page }) => {
+    await page.waitForLoadState('networkidle');
+    await expect(page).toHaveScreenshot('home-page-no-auth.png', {
+      mask: [ page.getByTitle("Practice Software Testing - Toolshop") ]
+    });
+  });
+
   test("check sign in", async ({ page }) => {
     // Ensure the sign-in link is present
     await expect(page.getByTestId('nav-sign-in')).toHaveText('Sign in');
@@ -48,6 +55,13 @@ test.describe('Home page customer 01 auth', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
+  });
+
+  test("visual test auth", async ({ page }) => {
+    await page.waitForLoadState('networkidle');
+    await expect(page).toHaveScreenshot('home-page-customer01.png', {
+      mask: [ page.getByTitle("Practice Software Testing - Toolshop") ]
+    });
   });
 
   test("check customer 01 is signed in", async ({ page }) => {
