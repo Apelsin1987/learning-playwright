@@ -1,6 +1,7 @@
+import { resolve } from "path";
 import { test, expect, Locator } from '@playwright/test';
 
-test.describe('Home page', () => {
+test.describe('Home page with no auth', () => {
 
   let productGrid: Locator;
 
@@ -36,4 +37,22 @@ test.describe('Home page', () => {
     await expect(searchResult).toBeVisible();
     await expect(searchResult).toHaveText(/Thor Hammer/);
   });
+});
+
+test.describe('Home page customer 01 auth', () => {
+
+  const authDir = resolve(__dirname, "..", "auth");
+  const customer01AuthFile = resolve(authDir, "customer01.json");
+
+  test.use({ storageState: customer01AuthFile });
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
+  test("check customer 01 is signed in", async ({ page }) => {
+    await expect(page.getByTestId('nav-sign-in')).not.toBeVisible();
+    await expect(page.getByTestId('nav-menu')).toContainText('Jane Doe');
+  });
+
 });
