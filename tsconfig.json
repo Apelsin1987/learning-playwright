@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "types": ["node"],
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0"
+  },
+  "include": [
+    "tests/**/*.ts",
+    "playwright.config.ts"
+  ]
+}
