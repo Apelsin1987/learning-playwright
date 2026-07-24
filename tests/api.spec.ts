@@ -27,3 +27,31 @@ test('POST /users/login', async ({ request }) => {
   expect(responseBody.access_token).toBeTruthy();
 
 });
+
+test('GET first product', async ({ page, request }) => {
+
+  // await page.goto('/');
+
+  // const productGrid = page.locator('.col-md-9');
+  // await productGrid.getByRole('link').first().click();
+
+  // const productId = page.url().split('/').pop();
+
+  const apiURL = "https://api.practicesoftwaretesting.com";
+
+  const responseProducts = await request.get(`${apiURL}/products`);
+  expect(responseProducts.status()).toBe(200);
+
+  const bodyProducts = await responseProducts.json();
+  if (!bodyProducts.data || bodyProducts.data.length === 0) {
+    throw new Error("No products found");
+  };
+
+  const productId = bodyProducts.data[0].id;
+  const responseFirstProduct = await request.get(`${apiURL}/products/${productId}`);
+  expect(responseFirstProduct.status()).toBe(200);
+
+  const bodyFirstProduct = await responseFirstProduct.json();
+  expect(bodyFirstProduct.id).toBe(productId);
+
+});
