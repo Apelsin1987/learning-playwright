@@ -30,13 +30,6 @@ test('POST /users/login', async ({ request }) => {
 
 test('GET first product', async ({ page, request }) => {
 
-  // await page.goto('/');
-
-  // const productGrid = page.locator('.col-md-9');
-  // await productGrid.getByRole('link').first().click();
-
-  // const productId = page.url().split('/').pop();
-
   const apiURL = "https://api.practicesoftwaretesting.com";
 
   const responseProducts = await request.get(`${apiURL}/products`);
