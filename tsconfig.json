@@ -7,6 +7,7 @@
   "include": [
     "tests/**/*.ts",
     "lib/**/*.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    "global.d.ts"
   ]
 }

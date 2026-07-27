@@ -41,4 +41,5 @@ test("GET first product", async ({ page, request }) => {
 
   const bodyFirstProduct = await responseFirstProduct.json();
   expect(bodyFirstProduct.id).toBe(productId);
+  expect(bodyFirstProduct.price).toBeNumber();
 });
