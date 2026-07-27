@@ -1,6 +1,6 @@
 import { resolve } from "path";
 import { test, expect } from "@playwright/test";
-import { randomState } from "../../lib/helpers/states";
+import { randomState } from "@helpers/states";
 
 test.describe("Order checkout", () => {
   const authDir = resolve(__dirname, "../..", "auth");

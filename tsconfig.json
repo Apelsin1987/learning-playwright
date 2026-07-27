@@ -2,7 +2,14 @@
   "compilerOptions": {
     "types": ["node"],
     "moduleResolution": "node",
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@datafactory/*": ["lib/datafactory/*"],
+      "@helpers/*": ["lib/helpers/*"],
+      "@pages/*": ["lib/pages/*"],
+      "@fixtures/*": ["lib/fixtures/*"],
+    }
   },
   "include": [
     "tests/**/*.ts",
