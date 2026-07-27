@@ -6,6 +6,7 @@
   },
   "include": [
     "tests/**/*.ts",
+    "lib/**/*.ts",
     "playwright.config.ts"
   ]
 }
