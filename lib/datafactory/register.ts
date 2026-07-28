@@ -1,3 +1,4 @@
+import { randomState } from "@helpers/states";
 import { request, expect } from "@playwright/test";
 
 export async function registerUser(email: string, password: string) {
@@ -12,9 +13,9 @@ export async function registerUser(email: string, password: string) {
       email: email,
       password: password,
       address: {
-        street: "Jose",
-        city: "Benalmadena",
-        state: "Malaga",
+        street: "Test street",
+        city: "Malaga",
+        state: randomState(),
         country: "ES",
         postal_code: "54321",
       },
