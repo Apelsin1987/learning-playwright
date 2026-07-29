@@ -24,7 +24,7 @@ test("POST /users/login", async ({ request }) => {
   expect(responseBody.access_token).toBeTruthy();
 });
 
-test("GET first product", async ({ page, request }) => {
+test("GET first product info", async ({ request }) => {
   const responseProducts = await request.get(`${apiUrl}/products`);
   expect(responseProducts.status()).toBe(200);
 

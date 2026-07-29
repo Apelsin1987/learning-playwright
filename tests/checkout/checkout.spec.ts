@@ -3,8 +3,12 @@ import { test, expect } from "@playwright/test";
 import { randomState } from "@helpers/states";
 
 test.describe("Order checkout", () => {
-  const authDir = resolve(__dirname, "../..", "auth");
-  const customer01AuthFile = resolve(authDir, "customer01.json");
+  const customer01AuthFile = resolve(
+    __dirname,
+    "../..",
+    "auth",
+    "customer01.json",
+  );
 
   test.use({ storageState: customer01AuthFile });
 
