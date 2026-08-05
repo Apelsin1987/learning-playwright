@@ -72,4 +72,29 @@ test.describe("Home page customer 01 auth", () => {
     await expect(page.getByTestId("nav-sign-in")).not.toBeVisible();
     await expect(page.getByTestId("nav-menu")).toContainText("Jane Doe");
   });
+
+  test("validate product data is visible in UI from API", async ({ page }) => {
+    let products: any;
+    await test.step("intercept /products", async () => {
+      await page.route(
+        "https://api.practicesoftwaretesting.com/products**",
+        async (route) => {
+          const response = await route.fetch();
+          products = await response.json();
+          route.continue();
+        },
+      );
+    });
+
+    await page.goto("/");
+
+    await expect(page.locator(".skeleton").first()).not.toBeVisible();
+
+    const productGrid = page.locator(".col-md-9");
+
+    for (const product of products.data) {
+      await expect(productGrid).toContainText(product.name);
+      await expect(productGrid).toContainText(product.price.toString());
+    }
+  });
 });
