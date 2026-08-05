@@ -125,4 +125,19 @@ test.describe("Home page customer 01 auth", () => {
     await expect(firstLink).toContainText("10000.1");
     await expect(firstLink).toContainText("Out of stock");
   });
+
+  test("validate product data is loaded from HAR file", async ({ page }) => {
+    await test.step("mock /products", async () => {
+      await page.routeFromHAR(".hars/product.har", {
+        url: "https://api.practicesoftwaretesting.com/products**",
+        update: false,
+      });
+    });
+
+    await page.goto("/");
+
+    const productGrid = page.locator(".col-md-9");
+    await expect(productGrid).toContainText("Happy Path Pliers");
+    await expect(productGrid).toContainText("140.99");
+  });
 });
