@@ -34,8 +34,12 @@ test.describe("Home page with no auth", () => {
     await expect(productGrid.getByRole("link")).toHaveCount(9);
   });
 
-  test("search for Thor Hammer", async ({ page }) => {
+  test("search for Thor Hammer", async ({ page, isMobile }) => {
     // Search for Thor Hammer and check that the result is one, have search text and visible
+    if (isMobile === true) {
+      await page.getByRole("button", { name: "Filters" }).click();
+    }
+
     await page.getByTestId("search-query").fill("Thor Hammer");
     await page.getByTestId("search-submit").click();
     await productGrid.getByRole("link").first().waitFor({ state: "visible" });
@@ -44,6 +48,36 @@ test.describe("Home page with no auth", () => {
     const searchResult = productGrid.getByRole("link").first();
     await expect(searchResult).toBeVisible();
     await expect(searchResult).toHaveText(/Thor Hammer/);
+  });
+
+  test("check for inputs without labels", async ({ page }) => {
+    // await page.goto("https://with-bugs.practicesoftwaretesting.com/");
+
+    const inputsWithoutLabels = await page.evaluate(() => {
+      // Find inputs that are missing labels on page
+      return Array.from(document.querySelectorAll("input"))
+        .filter((input) => !document.querySelector(`label[for="${input.id}"]`))
+        .map((input) => input.outerHTML);
+    });
+    expect(
+      inputsWithoutLabels.length,
+      `Labels with issues: ${inputsWithoutLabels.toString()}`,
+    ).toBe(0);
+  });
+
+  test("check for broken images", async ({ page }) => {
+    // await page.goto("https://with-bugs.practicesoftwaretesting.com/");
+
+    const brokenImages = await page.evaluate(() => {
+      // Find broken images on page
+      return Array.from(document.querySelectorAll("img"))
+        .filter((img) => img.naturalWidth === 0 || img.naturalHeight === 0)
+        .map((img) => img.src);
+    });
+    expect(
+      brokenImages.length,
+      `Broken images: ${brokenImages.toString()}`,
+    ).toBe(0);
   });
 });
 
